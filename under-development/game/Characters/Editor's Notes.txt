@@ -1,0 +1,11 @@
+UNDER-------
+-DEVELOPMENT
+www.MDickie.com
+Mat@MDickie.com
+
+EDITING COSTUMES
+Every correctly named addition to these folders will be loaded up and made available in the game. It is ESSENTIAL that you maintain consistency in the sequence of file names, because the program won't be able to fill in the gaps! Any new files must also be of the same type (i.e. JPG) to be acknowledged by the game...
+
+In the case of flesh-based images, you must also take care to assign a code that tells the game which racial overlay to use (if any). The number enclosed in brackets (not to be confused with the file name!) indicates which corresponding overlay from the accompanying "Shading" folder should be used by that texture - except in the case of faces, where 1-3 indicates white, asian, or black respectively. You should always refer to the SILVER (asian) overlay and NOT the golden (black) overlays. The game automatically knows that a black version follows the asian original. Incidentally, you can even add your own entries to this "Shading" folder for use with new styles of dress that have flesh in different places...
+
+You are advised to show restraint when expanding these selections! Remember that every file takes its toll on the game's loading time and performance. Inversely, you are advised not to reduce the default range of costumes. Although it's safe to do so, it could ruin the costumes of the default characters...

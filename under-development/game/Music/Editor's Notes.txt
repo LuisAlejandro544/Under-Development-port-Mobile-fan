@@ -1,0 +1,9 @@
+UNDER-------
+-DEVELOPMENT
+www.MDickie.com
+Mat@MDickie.com
+
+EDITING MUSIC
+Every correctly named addition to this folder will be loaded up and made available in the game. It is ESSENTIAL that you maintain consistency in the sequence of file names, because the program won't be able to fill in the gaps! Any new files must also be of the same type (i.e. MP3) to be acknowledged by the game.
+
+You are advised to show restraint when expanding the selection! Remember that every file takes its toll on the game's loading time and performance.

@@ -1,0 +1,7 @@
+UNDER-------
+-DEVELOPMENT
+www.MDickie.com
+Mat@MDickie.com
+
+ADDING GAMES
+Correctly numbered additions to the "Box Art" and "Screenshots" folder will show up in the "Edit Games" section where you can proceed to fill out the other information. It is ESSENTIAL that you maintain consistency in the sequence of file names, because the program won't be able to fill in the gaps! Any new files must also be of the same type (i.e. JPG) to be acknowledged by the game. There is a limit of 10000 games.

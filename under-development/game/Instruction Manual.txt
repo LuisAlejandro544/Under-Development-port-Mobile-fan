@@ -1,0 +1,82 @@
+UNDER-------
+-DEVELOPMENT
+www.MDickie.com
+Mat@MDickie.com
+
+The "Concept Kid" has literally made gaming history this time - with a game about the games industry itself! Spanning over 30 years from 1981 to 2011 and beyond, "Under Development" puts the controller in your hands at gaming's most pivotal moments. Walk the halls of 9 different companies and assemble a team of specialists in 6 key areas - from design and programming to graphics and sound. Then let them loose on over 30 pieces of increasingly sophisticated hardware - all lovingly brought to life in photo-realistic 3D. And every step of the way, you'll be using games to make games - via dozens of charming sub-games that reflect your efforts. But if you thought game development was about bringing dreams to life, prepare to contend with the nightmares of office politics, fickle fans, scathing reviews, and economic woes! Whether you aspire to make games or play them, Under Development is an affectionate tribute to the ultimate art form...
+
+SYSTEM REQUIREMENTS
+- This game requires an operating system compatible with DirectX 7.0 graphics or higher. Vista/W7 users should right-click the executable and set it for compatibility with XP.
+- A strong processor of at least 1.6gHz is recommended to run the game properly. Please consult the "Options" menus to configure the game for optimum performance. 
+
+------------------------ CONTROLS ------------------------------
+
+MENU NAVIGATION 
+As a strategy game, Under Development is designed to be controlled by MOUSE for the most part. The menus can be navigated by simply LEFT CLICKING on the appropriate options. Where necessary, values can be altered by using LEFT CLICK to browse forwards and RIGHT CLICK to browse backwards. ESCAPE can always be used to exit a screen, and where applicable BACKSPACE and SPACE can be used to reset or randomize values respectively. When dealing with lists of information, you should also find that RIGHT CLICK or TAB changes the display. Look out for additional commands throughout the game.
+
+GAME CONTROLS
+The game development process features many classic sub-games. The nature of these should be quite familiar, but brief explanations are always given. Some are controlled by MOUSE whereas others can be controlled by KEYS or GAMEPAD. The available methods of control will be displayed at the start. Where keyboard input is used, the CURSORS will be for direction and any other major keys such as SHIFT or CONTROL will serve as the "Fire" button. The game has a special "Arcade" testing ground where you can familiarize yourself with these controls with no pressure.
+
+EDITING
+The game contains a sophisticated editing facility for creating your star character and customizing others. Here you have a limited amount of points with which to create your starting profile, before specifying the costumes and character traits that make your character unique. Remember that the character model needs to be reloaded after being assigned a different "Build", and you must press ENTER over the option to trigger that process. When browsing the many clothing options, you may also like to consider that it's possible to skip closer to what you're looking for by pressing the SPACE BAR to randomize the current option or BACKSPACE to reset it. Making these changes will cost money once the game starts - so take care to perfect your starting character!
+
+Upon selecting to edit a character's "Relationships", you will be whisked off to a whole other screen where you can click on every other character in the world and adjust the relationship between them. Each click browses between "Enemy" status (red), "Friend" status (green), or nothing at all. These changes are automatically mirrored in the target's profile, so there's no need to go through it twice. If you'd rather not go through it at all, you can randomize a character's relationships with a simple hit of the SPACE BAR or clear their social network completely with BACKSPACE.
+
+OTHER CONTROLS
+At some junctures, you may be able to admire a game you've made or a machine you've bought. If you wish to do so, simply use the MOUSE to pan left or right and LEFT CLICK to zoom in or out. RIGHT CLICKING or hitting ESC will end the viewing session. If you'd like a souvenir of any achievement, you can save a screenshot to the "Photo Album" folder by simply hitting F12.
+
+---------------------- CAREER GUIDE -----------------------------
+
+The game is driven by 6 main attributes that are largely consistent across projects, hardware, and characters:
+- DESIGN translates into gameplay and refers to how fun a game is to play, which ensures popularity in the short-term at least.
+- PROGRAMMING dictates how sophisticated a game is and translates into replay value. Games of this calibre are more likely to be played long-term.
+- 2D GRAPHICS is how impressive the 2D visuals are. Note that this is also required for modern 3D games, where it serves as presentation and texturing.
+- 3D GRAPHICS is how impressive the 3D visuals are. Although this takes a long time to become the common feature that it is today, there can still be the "suggestion" of 3D in 2D games that use isometric displays, etc. It is the one quality that is optional, however, as purely 2D games can succeed.
+- SOUND and MUSIC are self-explanatory and refer to how impressive these aspects of a game are. They are not to be overlooked because their absence can ruin the overall experience.
+
+Exactly which one of these qualities is considered to be most important by the public can change over time, so be sure to keep an eye on the news!
+
+HARDWARE
+Projects, hardware, and characters are rated out of 100 in each category. It is impossible to exceed the limitations of your chosen hardware, so constantly migrating to the latest platform is key to success. However, it is also a gamble because "software development kits" cost a lot of money - and it may transpire that your chosen platform is not as popular as it could be! The number of "active users" a machine has grows from its launch and then declines in the years that follow. A user base of around 1'000'000 is considered to be a success. Games released on machines with significantly fewer users are likely to see poor sales. As a general rule, it is difficult to reach more than 10% of a machine's audience at any one time.
+
+FORMATS
+Each piece of hardware could rely on any one of 5 different "formats" to release its games. This is significant because some are more expensive than others (i.e. cartridges) and will affect your profit margins. Conversely, the cheaper formats are easier to pirate - which may affect your sales if your chosen platform is targeted! The manufacturing costs and retail prices will fluctuate regularly so be sure to keep an eye on this balance.
+
+WORKSTATIONS
+Although it's possible to make a game single-handedly, it can be futile unless your character is multi-talented. You will soon reach a point where you want to expand your office and invite others in. You must pay rent on each workstation you maintain, but you may then recruit another developer to occupy it (see below). Once empty, the workstation can then be closed again to save money. Occasionally, your equipment will become faulty - at which point you must pay to fix it and lose a day of productivity!
+
+CHARACTERS
+The people you meet are the least predictable thing about the game development process. They each have their own personality, which can either be an asset or a hindrance to the working environment. Further to the 6 main statistics, they also have their own unique attribute of "Reputation" (indicated by the heart running up the side). This is arguably the most important of them all because it governs how popular their work is - and how many sales they are likely to bring you. Note that this is not always a measure of their true worth. It is perfectly possible to be a talented developer who is not famous or a talentless one who is! Either way, this public perception will influence how much they can expect to earn. It goes up with each positive achievement and down with each disappointing performance.
+
+COMPANIES
+You start life as an independent developer, which can be both a gift and a curse. You have more control over your own career and earn a generous 50% cut of everything you sell. The downside is that it may be 50% of nothing due to a lack of promotion! Bigger sales and more exciting opportunities await at one of the 8 mainstream companies. There, you also have access to the other professionals on the staff - whom you can recruit far more easily than anybody else. Where you work also affects your prospects because each company has its own "policy" which may change over time. This could be how they prefer to pay you, how much freedom they give you, or what access they have to the latest consoles.
+
+CONTRACT NEGOTIATIONS
+Whether you're contemplating joining a company or recruiting an employee, the contract negotiation process is largely the same. It involves negotiating how many weeks or months the agreement will last for and how much money is going to change hands. This is a complex battle of wills in itself that changes from person to person. Some negotiations are easy and profitable, whereas others are difficult and costly.
+ 
+PROJECTS
+The culmination of all of this is of course the game development process itself. Every week, each of your 6 employees has a chance to contribute to the latest project. This takes the form of a charming little sub-game where you attempt to clock up as many points as possible in your chosen category! Exactly which character you choose is hugely significant because it directly affects how difficult the game is. More importantly, it also affects how much of their score they can translate into progress. A talentless person who miraculously scores full marks may still only increase the rating by a few percent. It is essential to hire talented people to make state of the art games. However, there is something to be said for giving less talented people a chance because their skill in that category will improve with each good performance (and vice versa).
+
+CREDIT
+Whoever makes the biggest contribution to each aspect of the game will be given "credit" for it. This then means that THEIR reputation will be taken into account when promoting the game (see below). It is often worth going through the charade of involving a talentless famous person at the expense of a genius that nobody has heard of! However, there is such a thing as "perfectionism" so you cannot beaver away at the same project forever. Once an aspect of the game is approaching perfection, your scores will no longer be accumulative and will simply determine how much of the final chunk you get to keep. At this juncture, it is actually possible for the score to go DOWN after a bad performance! Only a strong performance from a talented person can steer a project home.
+
+RELEASES
+Once a game has taken shape and appears on your screen, you can choose to focus on it by "identifying" it. If you can identify what the game is in real life, that will become its official identity and you will be one step closer to releasing it when you're ready. Once you release a game, it will be scrutinized in each category by the gaming press. The overall score they give it affects how popular it will be - along with the reputations of those involved. It is only possible to promote one release at a time, so deploy them carefully.
+
+PORTS
+As in real life, existing games can be re-released when different platforms become available. These "ports" only require half of the work of an original concept, so it can be an efficient way to milk past glories. The public are less interested in games they've seen before though! To port an existing release, simply select it and then head to the "Hardware" section. Upon choosing a different piece of hardware, a new half-baked version of the project will be created for that system.
+
+INSPIRATION VS ASPIRATION
+Most projects are "inspirational" in the sense that they are an original idea with no definite goal in mind. However, it is also possible to work on "aspirational" projects where you know exactly what you want to achieve from the start. This is a whole other challenge whereby the game will not take shape until you meet its requirements in each category. Projects of this kind are normally suggested by your boss or members of your team.
+
+The game assumes that you will not make more than 99 projects in your lifetime. In the unlikely event that you exceed this number, you can delete old projects at any time by pressing DELETE or BACKSPACE over them.
+
+------------------------------------------------------------------
+
+For more information about this game and others like it, 
+please visit: www.MDickie.com 
+or contact: Mat@MDickie.com
+
+If you encounter any problems or bugs, or simply have a request, don't hesitate to report those too...
+
+
