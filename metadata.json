@@ -1,0 +1,6 @@
+{
+  "name": "Under Development Port",
+  "description": "Hello World web build and manual GitHub Action to fetch MDickie Under Development source code, skins, and game assets.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

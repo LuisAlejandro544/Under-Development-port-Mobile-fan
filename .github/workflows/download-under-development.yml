@@ -1,0 +1,178 @@
+# ==============================================================================
+# GitHub Action: Descargar código fuente, skins y assets de Under Development
+# ==============================================================================
+# Lógica del workflow:
+# 1. Solo se ejecuta de forma MANUAL (on: workflow_dispatch). No se activa con
+#    commits, pushes, pull requests ni programaciones automáticas.
+# 2. Descarga desde Internet Archive (mirrors directos sin bloqueo Cloudflare):
+#    - El código fuente BlitzBasic (.bb) desde "MDickie Source Code Archives.rar"
+#      (carpeta "Under Development/develop_code.zip" y "README.txt").
+#    - El instalador NSIS completo "Under Development.exe" (~64 MB) desde
+#      "MDickie.zip", extrayendo todas las skins, texturas, gráficos, sonidos,
+#      música y datos del juego con 7-Zip.
+# 3. Opcionalmente (si el usuario marca la casilla al ejecutarlo) clona el
+#    motor open-source Blitz3D como referencia para el port móvil.
+# 4. Guarda todo en la carpeta destino del repositorio y hace commit + push.
+# ==============================================================================
+
+name: Descargar Under Development (Manual)
+
+# Activación EXCLUSIVAMENTE manual desde la pestaña "Actions" de GitHub.
+on:
+  workflow_dispatch:
+    inputs:
+      target_dir:
+        description: "Carpeta donde guardar el juego y código fuente"
+        required: true
+        default: "under-development"
+        type: string
+      include_blitz3d_engine:
+        description: "Incluir también el repositorio de referencia del motor Blitz3D"
+        required: false
+        default: false
+        type: boolean
+
+# Permiso necesario para hacer commit y push de los archivos descargados al repo.
+permissions:
+  contents: write
+
+jobs:
+  fetch-under-development:
+    name: Descargar código fuente y assets completos
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Clonar repositorio actual
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Instalar herramientas de extracción (unar, p7zip-full, unzip)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y unar p7zip-full unzip curl
+
+      - name: Descargar y extraer código fuente (.bb) de Under Development
+        env:
+          TARGET_DIR: ${{ inputs.target_dir }}
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/ud_work/rar_out "${TARGET_DIR}/source"
+
+          echo "Descargando MDickie Source Code Archives.rar desde Archive.org..."
+          curl -fL --retry 3 --retry-delay 5 \
+            "https://archive.org/download/mdickiesourcecodearchives/MDickie%20Source%20Code%20Archives.rar" \
+            -o /tmp/ud_work/source_archives.rar
+
+          echo "Extrayendo archivo RAR5 con unar..."
+          unar -f -o /tmp/ud_work/rar_out /tmp/ud_work/source_archives.rar
+
+          SRC_SUBDIR="/tmp/ud_work/rar_out/MDickie Source Code Archives/Under Development"
+          if [ ! -d "$SRC_SUBDIR" ]; then
+            echo "Error: No se encontró la carpeta Under Development dentro del RAR."
+            find /tmp/ud_work/rar_out -maxdepth 3
+            exit 1
+          fi
+
+          # Copiar README.txt y descomprimir develop_code.zip en ${TARGET_DIR}/source
+          if [ -f "$SRC_SUBDIR/README.txt" ]; then
+            cp "$SRC_SUBDIR/README.txt" "${TARGET_DIR}/source/README.txt"
+          fi
+
+          if [ -f "$SRC_SUBDIR/develop_code.zip" ]; then
+            unzip -o "$SRC_SUBDIR/develop_code.zip" -d "${TARGET_DIR}/source"
+          else
+            cp -r "$SRC_SUBDIR"/* "${TARGET_DIR}/source/"
+          fi
+
+          echo "Código fuente extraído en ${TARGET_DIR}/source:"
+          ls -la "${TARGET_DIR}/source"
+
+      - name: Descargar y extraer juego completo, skins, texturas y audio
+        env:
+          TARGET_DIR: ${{ inputs.target_dir }}
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/ud_work "${TARGET_DIR}/game"
+
+          echo "Descargando instalador completo Under Development.exe desde Archive.org..."
+          curl -fL --retry 3 --retry-delay 5 \
+            "https://archive.org/download/MDickie/MDickie.zip/MDickie%2FUnder%20Development.exe" \
+            -o "/tmp/ud_work/UnderDevelopmentSetup.exe"
+
+          echo "Extrayendo instalador NSIS (skins, gráficos, sonidos, datos) con 7z..."
+          7z x -y "/tmp/ud_work/UnderDevelopmentSetup.exe" -o"${TARGET_DIR}/game"
+
+          # Limpiar directorios internos temporales propios del instalador NSIS si existen
+          rm -rf "${TARGET_DIR}/game/\$PLUGINSDIR" "${TARGET_DIR}/game/\$TEMP" || true
+
+          echo "Assets del juego extraídos en ${TARGET_DIR}/game:"
+          find "${TARGET_DIR}/game" -maxdepth 2
+
+      - name: Descargar motor Blitz3D de referencia (opcional)
+        if: ${{ inputs.include_blitz3d_engine == true }}
+        env:
+          TARGET_DIR: ${{ inputs.target_dir }}
+        run: |
+          set -euo pipefail
+          rm -rf "${TARGET_DIR}/blitz3d-engine"
+          git clone --depth 1 https://github.com/blitz-research/blitz3d.git "${TARGET_DIR}/blitz3d-engine"
+          rm -rf "${TARGET_DIR}/blitz3d-engine/.git"
+
+      - name: Generar manifiesto de fuentes y limpiar archivos temporales
+        env:
+          TARGET_DIR: ${{ inputs.target_dir }}
+        run: |
+          set -euo pipefail
+          rm -rf /tmp/ud_work
+
+          SOURCE_COUNT=$(find "${TARGET_DIR}/source" -type f | wc -l)
+          GAME_COUNT=$(find "${TARGET_DIR}/game" -type f | wc -l)
+
+          printf '%s\n' \
+            "# Under Development - Código fuente y assets descargados" \
+            "" \
+            "- **Código fuente (BlitzBasic / Blitz3D):** \`https://archive.org/details/mdickiesourcecodearchives\` (\`MDickie Source Code Archives/Under Development/develop_code.zip\`)" \
+            "- **Instalador completo (skins, texturas, gráficos, audio, datos):** \`https://archive.org/details/MDickie\` (\`MDickie/Under Development.exe\`)" \
+            "- **Archivos de código fuente extraídos:** ${SOURCE_COUNT}" \
+            "- **Archivos de juego y assets extraídos:** ${GAME_COUNT}" \
+            "" \
+            "> Nota: El código fuente fue publicado por Mat Dickie para estudio y modding." \
+            > "${TARGET_DIR}/SOURCES.md"
+
+          {
+            echo "### Descarga completada"
+            echo "- Carpeta destino: \`${TARGET_DIR}\`"
+            echo "- Archivos de código fuente: **${SOURCE_COUNT}**"
+            echo "- Archivos de juego/skins/audio: **${GAME_COUNT}**"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Verificar límite de tamaño de GitHub (<100 MB por archivo)
+        env:
+          TARGET_DIR: ${{ inputs.target_dir }}
+        run: |
+          set -euo pipefail
+          OVERSIZED=$(find "${TARGET_DIR}" -type f -size +99M)
+          if [ -n "$OVERSIZED" ]; then
+            echo "Advertencia: Se encontraron archivos mayores a 99 MB:"
+            echo "$OVERSIZED"
+            exit 1
+          fi
+
+      - name: Guardar cambios en el repositorio (commit y push)
+        env:
+          TARGET_DIR: ${{ inputs.target_dir }}
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add -A "${TARGET_DIR}"
+
+          if git diff --staged --quiet; then
+            echo "No hay cambios nuevos para guardar."
+            exit 0
+          fi
+
+          git commit -m "Descargar código fuente, skins y assets completos de Under Development"
+          git push
