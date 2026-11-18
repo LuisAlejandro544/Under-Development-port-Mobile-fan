@@ -47,10 +47,12 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Instalar herramientas de extracción (unar, p7zip-full, unzip)
+      - name: Instalar herramientas de extracción (unar, 7zip, p7zip-full, unzip)
         run: |
           sudo apt-get update
           sudo apt-get install -y unar p7zip-full unzip curl
+          sudo apt-get install -y 7zip || true
+          sudo apt-get install -y unrar || true
 
       - name: Descargar y extraer código fuente (.bb) de Under Development
         env:
@@ -64,8 +66,14 @@ jobs:
             "https://archive.org/download/mdickiesourcecodearchives/MDickie%20Source%20Code%20Archives.rar" \
             -o /tmp/ud_work/source_archives.rar
 
-          echo "Extrayendo archivo RAR5 con unar..."
-          unar -f -o /tmp/ud_work/rar_out /tmp/ud_work/source_archives.rar
+          echo "Extrayendo únicamente la carpeta Under Development del archivo RAR5..."
+          if command -v unrar >/dev/null 2>&1; then
+            unrar x -o+ /tmp/ud_work/source_archives.rar "MDickie Source Code Archives/Under Development/*" /tmp/ud_work/rar_out/
+          else
+            # unar puede devolver código 1 por README.txt de otros juegos en el RAR;
+            # Under Development sí extrae OK, así que validamos el ZIP justo después.
+            unar -f -o /tmp/ud_work/rar_out /tmp/ud_work/source_archives.rar || true
+          fi
 
           SRC_SUBDIR="/tmp/ud_work/rar_out/MDickie Source Code Archives/Under Development"
           if [ ! -d "$SRC_SUBDIR" ]; then
@@ -74,15 +82,18 @@ jobs:
             exit 1
           fi
 
-          # Copiar README.txt y descomprimir develop_code.zip en ${TARGET_DIR}/source
+          # Copiar README.txt y validar/descomprimir develop_code.zip en ${TARGET_DIR}/source
           if [ -f "$SRC_SUBDIR/README.txt" ]; then
             cp "$SRC_SUBDIR/README.txt" "${TARGET_DIR}/source/README.txt"
           fi
 
           if [ -f "$SRC_SUBDIR/develop_code.zip" ]; then
+            unzip -t "$SRC_SUBDIR/develop_code.zip"
             unzip -o "$SRC_SUBDIR/develop_code.zip" -d "${TARGET_DIR}/source"
           else
-            cp -r "$SRC_SUBDIR"/* "${TARGET_DIR}/source/"
+            echo "Error: No se encontró develop_code.zip dentro de Under Development."
+            ls -la "$SRC_SUBDIR"
+            exit 1
           fi
 
           echo "Código fuente extraído en ${TARGET_DIR}/source:"
@@ -100,11 +111,20 @@ jobs:
             "https://archive.org/download/MDickie/MDickie.zip/MDickie%2FUnder%20Development.exe" \
             -o "/tmp/ud_work/UnderDevelopmentSetup.exe"
 
-          echo "Extrayendo instalador NSIS (skins, gráficos, sonidos, datos) con 7z..."
-          7z x -y "/tmp/ud_work/UnderDevelopmentSetup.exe" -o"${TARGET_DIR}/game"
+          echo "Extrayendo instalador NSIS (skins, gráficos, sonidos, datos) con 7-Zip..."
+          if command -v 7zz >/dev/null 2>&1; then
+            7zz x -y "/tmp/ud_work/UnderDevelopmentSetup.exe" -o"${TARGET_DIR}/game"
+          else
+            7z x -y "/tmp/ud_work/UnderDevelopmentSetup.exe" -o"${TARGET_DIR}/game"
+          fi
 
           # Limpiar directorios internos temporales propios del instalador NSIS si existen
           rm -rf "${TARGET_DIR}/game/\$PLUGINSDIR" "${TARGET_DIR}/game/\$TEMP" || true
+
+          if [ "$(find "${TARGET_DIR}/game" -type f | wc -l)" -eq 0 ]; then
+            echo "Error: No se extrajeron archivos del instalador del juego."
+            exit 1
+          fi
 
           echo "Assets del juego extraídos en ${TARGET_DIR}/game:"
           find "${TARGET_DIR}/game" -maxdepth 2
@@ -167,7 +187,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          git add -A "${TARGET_DIR}"
+          git add -f -A "${TARGET_DIR}"
 
           if git diff --staged --quiet; then
             echo "No hay cambios nuevos para guardar."
